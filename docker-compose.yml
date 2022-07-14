@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  # PostgreSQLの実行環境
+  db:
+    container_name: memorizer-db
+    image: postgres:14.4
+    ports:
+      - 5432:5432
+    networks:
+      - memorizer
+    restart: always
+    volumes:
+      - postgresql_volume:/var/lib/postgresql/data:rw
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Tokyo
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=C
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
+
+  # pgAdmin4の実行環境
+  pgadmin4:
+    container_name: memorizer-pgadmin
+    image: dpage/pgadmin4:6.8
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - 5433:80
+    networks:
+      - memorizer
+    volumes:
+      - pgadmin4_volume:/var/lib/pgadmin
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
+
+  # Golangの実行環境
+  app:
+    container_name: app
+    build: .
+    image: memorizer-api
+    depends_on:
+      - db
+    networks:
+      - memorizer
+    ports:
+      - 5050:8080
+    tty: true
+    volumes:
+      - .:/go
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
+
+networks:
+  memorizer:
+    name: memorizer-network
+
+volumes:
+  postgresql_volume:
+    driver: local
+  pgadmin4_volume:
+    driver: local
