@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"github.com/ys7i/memorizer/src/domain"
+	"github.com/ys7i/memorizer/domain"
 )
 
 type UserRepository interface {

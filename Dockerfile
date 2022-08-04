@@ -1,17 +1,13 @@
 FROM golang:1.18-alpine
 
-WORKDIR /go
+WORKDIR /go/src
 
-COPY ./src /go/
-COPY ./go.mod /go/
-COPY ./go.sum /go/
-
-ENV GOPATH=
+COPY ./src .
 
 RUN apk upgrade --update && \
     apk --no-cache add git
 
-RUN go get && \
+RUN go get -u github.com/cosmtrek/air && \
     go build -o /go/bin/air github.com/cosmtrek/air
 
 CMD ["air", "-c", ".air.toml"]

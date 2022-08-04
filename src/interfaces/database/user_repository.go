@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/ys7i/memorizer/src/domain"
+	"github.com/ys7i/memorizer/domain"
 	"gorm.io/gorm"
 )
 

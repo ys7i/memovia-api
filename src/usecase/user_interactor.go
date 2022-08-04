@@ -1,6 +1,6 @@
 package usecase
 
-import "github.com/ys7i/memorizer/src/domain"
+import "github.com/ys7i/memorizer/domain"
 
 type UserInteractor struct {
 	UserRepo UserRepository

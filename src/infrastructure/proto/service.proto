@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package infrastracture;
+
+service MemoviaService {
+  rpc CreateMemovia(CreateMemoviaRequest) returns (Memovia);
+}
+
+message CreateMemoviaRequest {
+  string title = 1;
+  string description = 2;
+}
+
+message Memovia {
+  string title = 1;
+  string description = 2;
+}

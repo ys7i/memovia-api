@@ -45,18 +45,23 @@ services:
 
   # Golangの実行環境
   app:
+    working_dir: /go/src
     container_name: app
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     image: memorizer-api
+    env_file:
+      - .env
     depends_on:
       - db
     networks:
       - memorizer
     ports:
-      - 5050:8080
+      - 5050:5050
     tty: true
     volumes:
-      - .:/go
+      - ./src:/go/src
     logging:
       driver: json-file
       options:

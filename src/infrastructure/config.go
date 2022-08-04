@@ -1,6 +1,8 @@
 package infrastructure
 
-import "os"
+import (
+	"os"
+)
 
 type Config struct {
     DB struct {
@@ -23,9 +25,7 @@ type Config struct {
 }
 
 func NewConfig() *Config {
-
     c := new(Config)
-
     c.DB.Production.Host = "db"
     c.DB.Production.Username = os.Getenv("POSTGRES_USER")
     c.DB.Production.Password = os.Getenv("POSTGRES_PASSWORD")
