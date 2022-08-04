@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	"github.com/ys7i/memovia/interfaces/database"
+	"github.com/ys7i/memovia-api/interfaces/database"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
